@@ -1,7 +1,11 @@
 package com.cohen;  
  
  import java.io.IOException; 
- import javax.servlet.http.*; 
+
+import javax.servlet.http.*; 
+
+import com.cohen.model.Portfolio;
+import com.cohen.service.PortfolioManager;
  
  
  @SuppressWarnings("serial") 
@@ -11,7 +15,7 @@ package com.cohen;
  			throws IOException 
  	{ 		
  		resp.setContentType("text/html");
-
+ 	
  		int num1;
  		int num2;
  		int num3;
@@ -23,5 +27,6 @@ package com.cohen;
  		String resultStr = "<h1>Result of ("+num3+"*("+num2+"+"+num1+"))="+result+"</h1>";
  		
  		resp.getWriter().println(resultStr);
+ 		
  	}
 } 
