@@ -1,15 +1,10 @@
-package com.cohen;
+package com.cohen.model;
 import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Stock  {
-		
-	
-	private final static int BUY = 0;
-	private final static int SELL = 1;
-	private final static int REMOVE = 2;
-	private final static int HOLD = 3;
+
 	
 	private String symbol ; 
 	private float ask;
@@ -18,6 +13,9 @@ public class Stock  {
 	private int recommendation;
 	private int stockQuantity;
 	
+	public enum Status {
+		BUY,  SELL, REMOVE , HOLD
+	}
 	
 
 	public Stock (String symbol, float ask, float bid, Date date, int recommendation, int stockQuantity){
@@ -27,6 +25,15 @@ public class Stock  {
 		this.date = date;
 		this.recommendation = recommendation;
 		this.stockQuantity = stockQuantity;
+	}
+	
+	public Stock (Stock stock){
+		this.symbol = new String (stock.getSymbol());
+		this.ask = stock.getAsk();
+		this.bid = stock.getBid();
+		this.date = new Date( stock.getDate().getTime());
+		this.recommendation = stock.getRecommendation();
+		this.stockQuantity = stock.getStockQuantity();
 	}
 	
 	public String getSymbol() {
@@ -74,22 +81,6 @@ public class Stock  {
 
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
-	}
-
-	public static int getBuy() {
-		return BUY;
-	}
-
-	public static int getSell() {
-		return SELL;
-	}
-
-	public static int getRemove() {
-		return REMOVE;
-	}
-
-	public static int getHold() {
-		return HOLD;
 	}
 
 	public String getHtmlDescription(){

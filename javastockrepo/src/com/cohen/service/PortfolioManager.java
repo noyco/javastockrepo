@@ -1,6 +1,5 @@
 package com.cohen.service;
 
-import com.cohen.Stock;
 import com.cohen.model.*;
 
 import java.io.IOException;
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PortfolioManager {
 	public Portfolio getPortfolio (){
 		
-		Portfolio portfolio = new Portfolio ();
-		portfolio.setTitle("portfolio");
+		Portfolio portfolio = new Portfolio ("portfolio1");
 		Calendar cal = Calendar.getInstance();
 		cal.set(2014, 10, 15, 0, 0, 0);
 		
@@ -26,6 +24,8 @@ public class PortfolioManager {
 		portfolio.addStock(aalStock2);
 		Stock caasStock3 = new Stock ("CAAS",32.2f , 31.5f , cal.getTime(), 0, 0);
 		portfolio.addStock(caasStock3);
+		
+		
 		
 		return portfolio;
 	}

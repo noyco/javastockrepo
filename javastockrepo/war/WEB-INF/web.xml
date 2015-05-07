@@ -5,35 +5,6 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>JavastockrepoServlet</servlet-name>
-		<servlet-class>com.cohen.JavastockrepoServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>JavastockrepoServlet</servlet-name>
-		<url-pattern>/javastockreposervlet</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
-		<servlet-name>Ex3Servlet</servlet-name>
-		<servlet-class>com.cohen.Ex3Servlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Ex3Servlet</servlet-name>
-		<url-pattern>/ex3servlet</url-pattern>
-	</servlet-mapping> 
-	
-	<servlet>
-		<servlet-name>StockDetailsServlet</servlet-name>
-		<servlet-class>com.cohen.StockDetailsServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>StockDetailsServlet</servlet-name>
-		<url-pattern>/stockdetailsservlet</url-pattern>
-	</servlet-mapping> 
-	<servlet>
 		<servlet-name>PortfolioServlet</servlet-name>
 		<servlet-class>com.cohen.servlet.PortfolioServlet</servlet-class>
 	</servlet>
