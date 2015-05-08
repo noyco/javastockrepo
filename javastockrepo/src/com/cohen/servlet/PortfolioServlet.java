@@ -10,6 +10,11 @@ import com.cohen.model.Portfolio;
 import com.cohen.model.Stock;
 import com.cohen.service.PortfolioManager;
 
+/**
+ * PortfolioServlet class extends from HttpServlet
+ * @author noyco
+ *
+ */
 public class PortfolioServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

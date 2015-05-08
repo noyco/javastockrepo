@@ -2,6 +2,11 @@ package com.cohen.model;
 import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+/**
+ * stock class - saves information about a stock, symbol, ask, bid, date, recommendation and stockQuantity.
+ * @author noyco
+ *
+ */
 
 public class Stock  {
 
@@ -13,10 +18,20 @@ public class Stock  {
 	private int recommendation;
 	private int stockQuantity;
 	
+	
 	public enum Status {
 		BUY,  SELL, REMOVE , HOLD
 	}
-	
+	/**
+	 * c'tor method
+     * Gets from the user  information about a stock.
+	 * @param symbol 
+	 * @param ask
+	 * @param bid
+	 * @param date
+	 * @param recommendation
+	 * @param stockQuantity
+	 */
 
 	public Stock (String symbol, float ask, float bid, Date date, int recommendation, int stockQuantity){
 		this.symbol = symbol;
@@ -27,6 +42,10 @@ public class Stock  {
 		this.stockQuantity = stockQuantity;
 	}
 	
+	/**
+	 * copy c'tor method
+	 * @param stock - Gets from the user the stock he wants to copy.
+	 */
 	public Stock (Stock stock){
 		this.symbol = new String (stock.getSymbol());
 		this.ask = stock.getAsk();
@@ -82,7 +101,11 @@ public class Stock  {
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
-
+	
+	/**
+	 * string method that print to screen
+	 * @return string value
+	 */
 	public String getHtmlDescription(){
 		
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");

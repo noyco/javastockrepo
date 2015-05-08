@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
+/** 
+ * portfolio class - a array with value and details of stocks, a title and physical size of the stocks array
+ * @author noyco
+ */
+
 public class Portfolio {
 	
 	private final static int MAX_PROTFOLIO_SIZE = 5;
@@ -16,12 +21,20 @@ public class Portfolio {
 	private Stock stocks [] = new Stock [MAX_PROTFOLIO_SIZE];
 	private int protfolioSize;
 	
-
-	public Portfolio (String tatle) {
-		this.title = tatle;
+/** 
+ * c'tor method
+ * @param title - Gets from the user the name of the portfolio.
+ */
+	public Portfolio (String title) {
+		this.title = title;
 		this.stocks = new Stock [MAX_PROTFOLIO_SIZE];
 		this.protfolioSize = 0;
 	}
+	
+	/** 
+	 * copy c'tor method
+	 * @param portfolio - Gets from the user the portfolio he wants to copy.
+	 */
 	
 	public Portfolio (Portfolio portfolio){
 		this.title = new String (portfolio.getTitle());
@@ -60,7 +73,10 @@ public class Portfolio {
 	public void setProtfolioSize(int protfolioSize) {
 		this.protfolioSize = protfolioSize;
 	}
-	
+	/**
+	 * add stock method
+	 * @param stockAd - Gets from the user the stock he wants to add to the array.
+	 */
 	public void addStock (Stock stockAd){
 		if(stockAd != null && protfolioSize < MAX_PROTFOLIO_SIZE) {
 			this.stocks[protfolioSize] = stockAd;
@@ -71,6 +87,10 @@ public class Portfolio {
 		}
 	}
 	
+	/**
+	 * remove stock method
+	 * @param symbol - Gets from the user the symbol to the stock he wants to remove from the array.
+	 */
 	public void removeStock (String symbol){
 		for (int i=0; i < protfolioSize; i++){
 			
@@ -82,7 +102,10 @@ public class Portfolio {
 			}
 		}
 	}
-	
+	/**
+	 * string method that print to screen
+	 * @return string value
+	 */
 	public String getHtmlString (){
 		String ret ="<br><h1>The title is: " + getTitle() + ".</h1></br>";
 		
