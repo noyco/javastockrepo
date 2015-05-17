@@ -2,6 +2,8 @@ package com.cohen.model;
 import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
+import com.cohen.model.Portfolio.ALGO_RECOMMENDATION;
 /**
  * stock class - saves information about a stock, symbol, ask, bid, date, recommendation and stockQuantity.
  * @author noyco
@@ -15,13 +17,11 @@ public class Stock  {
 	private float ask;
 	private float bid;
 	private java.util.Date date;
-	private int recommendation;
-	private int stockQuantity;
+	private Portfolio.ALGO_RECOMMENDATION recommendation;
+	private int quantity;
 	
 	
-	public enum Status {
-		BUY,  SELL, REMOVE , HOLD
-	}
+	
 	/**
 	 * c'tor method
      * Gets from the user  information about a stock.
@@ -33,13 +33,13 @@ public class Stock  {
 	 * @param stockQuantity
 	 */
 
-	public Stock (String symbol, float ask, float bid, Date date, int recommendation, int stockQuantity){
+	public Stock (String symbol, float ask, float bid, Date date){
 		this.symbol = symbol;
 		this.ask = ask;
 		this.bid = bid;
 		this.date = date;
-		this.recommendation = recommendation;
-		this.stockQuantity = stockQuantity;
+		this.recommendation = ALGO_RECOMMENDATION.HOLD;
+		this.quantity = 0;
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class Stock  {
 		this.bid = stock.getBid();
 		this.date = new Date( stock.getDate().getTime());
 		this.recommendation = stock.getRecommendation();
-		this.stockQuantity = stock.getStockQuantity();
+		this.quantity = stock.getQuantity();
 	}
 	
 	public String getSymbol() {
@@ -86,20 +86,20 @@ public class Stock  {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
-	public int getRecommendation() {
+	public Portfolio.ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
 	}
 
-	public void setRecommendation(int recommendation) {
+	public void setRecommendation(Portfolio.ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
 	}
 
-	public int getStockQuantity() {
-		return stockQuantity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity = stockQuantity;
+	public void setQuantity(int stockQuantity) {
+		this.quantity = stockQuantity;
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class Stock  {
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		String dataStr = df.format(getDate());
 		
-		String ret = "<br>"+" <b> Symbol:  </b>" +getSymbol()+" <b> Ask:  </b>"+getAsk()+" <b> Bid:  </b>"+getBid()+" <b> Date:  </b>"+getDate()+" <b> recommendation:  </b>"+getRecommendation()+" <b> Quantity:  </b>"+getStockQuantity()+"</br>";
+		String ret = "<br>"+" <b> Symbol:  </b>" +getSymbol()+" <b> Ask:  </b>"+getAsk()+" <b> Bid:  </b>"+getBid()+" <b> Date:  </b>"+getDate()+" <b> recommendation:  </b>"+getRecommendation()+" <b> Quantity:  </b>"+getQuantity()+"</br>";
 		
 		return ret;
 	}
