@@ -167,7 +167,7 @@ public class Portfolio {
 		int howMany = 0;
 		int i = whereSymbol(stock.getSymbol());
 		
-		if(buyQuantity == -1 && i!= -1 ){
+		if(buyQuantity == -1 && i!= 1 ){
 			howMany = (int)this.balance/(int)this.stocks[i].getAsk();
 			if(this.getBalance() >= howMany * this.stocks[i].getAsk()){
 				this.updateBalance(-(howMany * this.stocks[i].getAsk()));
