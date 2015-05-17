@@ -36,7 +36,7 @@ public class PortfolioManager {
 		
 		myportfolio.buyStock(s1, 20);
 		myportfolio.buyStock(s2, 30);
-		myportfolio.buyStock(s3, 20);
+		myportfolio.buyStock(s3, 40);
 		
 		myportfolio.sellStock("AAL", -1);
 		myportfolio.removeStock("CAAS");
