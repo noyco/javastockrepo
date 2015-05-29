@@ -3,6 +3,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import org.algo.model.StockInterface;
+
 import com.cohen.model.Portfolio.ALGO_RECOMMENDATION;
 /**
  * stock class - saves information about a stock, symbol, ask, bid, date, recommendation and stockQuantity.
@@ -10,7 +12,7 @@ import com.cohen.model.Portfolio.ALGO_RECOMMENDATION;
  *
  */
 
-public class Stock  {
+public class Stock implements StockInterface {
 
 	
 	private String symbol ; 

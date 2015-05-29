@@ -122,5 +122,7 @@
 			<attribute name="javadoc_location" value="file:/C:/javacourse/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.18/appengine-java-sdk-1.9.18/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/javacourse/Java course exe 8 files for students v5/war/WEB-INF/lib/algoservices.jar"/>
+	<classpathentry kind="lib" path="C:/javacourse/Java course exe 8 files for students v5/war/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

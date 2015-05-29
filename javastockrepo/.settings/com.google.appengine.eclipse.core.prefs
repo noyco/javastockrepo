@@ -6,3 +6,4 @@ gaeHrdEnabled=true
 gaeLaunchAppInBrowser=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
+validationExclusions=src/com/cohen/model/Portfolio.java|src/com/cohen/model/|src/com/cohen/service/

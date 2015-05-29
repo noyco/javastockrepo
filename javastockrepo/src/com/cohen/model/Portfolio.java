@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.algo.model.PortfolioInterface;
+import org.algo.model.StockInterface;
+
 @SuppressWarnings("serial")
 /** 
  * portfolio class - a array with value and details of stocks, a title and physical size of the stocks array
  * @author noyco
  */
 
-public class Portfolio {
+public class Portfolio implements PortfolioInterface {
 	
 	
 	private final static int MAX_PROTFOLIO_SIZE = 5;
@@ -24,9 +27,9 @@ public class Portfolio {
 	}
 	
 	private String title ;
-	private Stock stocks [] = new Stock [MAX_PROTFOLIO_SIZE];
+	private StockInterface stocks [];
 	private int protfolioSize;
-	private float balance = 0 ;
+	private float balance ;
 	
 /** 
  * c'tor method
@@ -48,9 +51,9 @@ public class Portfolio {
 		this.protfolioSize = portfolio.getProtfolioSize();
 		this.balance = portfolio.getBalance();
 		
-		Stock [] coppied = portfolio.getStocks();
+		StockInterface [] coppied = portfolio.getStocks();
 		for (int i = 0; i < this.protfolioSize; i++){
-			this.stocks [i] = new Stock (coppied [i]);
+			this.stocks [i] = new Stock ((Stock)coppied [i]);
 		}
 	}
 	
@@ -62,7 +65,7 @@ public class Portfolio {
 		this.title = title;
 	}
 	
-	public Stock[] getStocks() {
+	public StockInterface[] getStocks() {
 		return stocks;
 	}
 	
@@ -125,6 +128,16 @@ public class Portfolio {
 		return -1;
 	}
 	
+	public StockInterface findStockPlace (String stockToFind){
+		int i = 0;
+		for( i = 0; i< this.protfolioSize; i++){
+			if(stockToFind.equals(this.stocks[i].getSymbol())){
+				return this.stocks[i];
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * remove stock method
 	 * @param symbol - Gets from the user the symbol to the stock he wants to remove from the array.
@@ -146,14 +159,14 @@ public class Portfolio {
 	public boolean sellStock (String symbol, int sellQuantity){
 		int place = whereSymbol(symbol);
 		if (sellQuantity == -1 && place != -1){
-			updateBalance(this.stocks[place].getBid() * this.stocks[place].getQuantity());
-			this.stocks[place].setQuantity(0);
+			updateBalance(this.stocks[place].getBid() *((Stock) this.stocks[place]).getQuantity());
+			((Stock) this.stocks[place]).setQuantity(0);
 			System.out.println("All stock is sold");
 			return true;
 		}
-		else if (sellQuantity <= this.stocks[place].getQuantity() && place != -1 ){
+		else if (sellQuantity <= ((Stock) this.stocks[place]).getQuantity() && place != -1 ){
 			updateBalance(this.stocks[place].getBid() * sellQuantity);
-			this.stocks[place].setQuantity(this.stocks[place].getQuantity() - sellQuantity);
+			((Stock)this.stocks[place]).setQuantity(((Stock)this.stocks[place]).getQuantity() - sellQuantity);
 			return true;
 		}
 		else {
@@ -171,13 +184,13 @@ public class Portfolio {
 			howMany = (int)this.balance/(int)this.stocks[i].getAsk();
 			if(this.getBalance() >= howMany * this.stocks[i].getAsk()){
 				this.updateBalance(-(howMany * this.stocks[i].getAsk()));
-				this.stocks[i].setQuantity(this.stocks[i].getQuantity() + howMany);				
+				((Stock)this.stocks[i]).setQuantity(((Stock)this.stocks[i]).getQuantity() + howMany);				
 			}
 			return true;
 		}
 		else if (buyQuantity > 0 && i!= -1 && this.getBalance() >= buyQuantity*this.stocks[i].getAsk() ){
 			this.updateBalance(-(buyQuantity * this.stocks[i].getAsk()));
-			this.stocks[i].setQuantity(this.stocks[i].getQuantity() + buyQuantity );
+			((Stock)this.stocks[i]).setQuantity(((Stock)this.stocks[i]).getQuantity() + buyQuantity );
 			return true;
 		
 		}	
@@ -196,7 +209,7 @@ public class Portfolio {
 	public float getStocksValue (){
 		float total = 0;
 		for(int i =0 ; i < protfolioSize ; i++){
-			total = total + this.stocks[i].getBid()*this.stocks[i].getQuantity();
+			total = total + this.stocks[i].getBid()*((Stock)this.stocks[i]).getQuantity();
 		}
 		return total;
 	}
@@ -216,7 +229,7 @@ public class Portfolio {
 		String ret ="<br><h1>The title is: " + getTitle() + ".</h1></br>";
 		
 		for(int i=0 ; i < protfolioSize ; i++){
-			ret = ret + this.stocks[i].getHtmlDescription();
+			ret = ret + ((Stock)this.stocks[i]).getHtmlDescription();
 		}
 		
 		ret = ret + "<br><b> Total Portfolio Value:</b> " +getTotalValue() + " $ </br>" + "<br><b> Balance Value: </b>" +getBalance() + " $ </br>" + "<br><b> Stocks Value:</b> " +getStocksValue() + " $ </br>";
