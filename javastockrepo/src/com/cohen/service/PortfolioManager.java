@@ -195,7 +195,12 @@ public class PortfolioManager implements PortfolioManagerInterface {
 		newStock.setDate(stockDto.getDate());
 		newStock.setQuantity(stockDto.getQuantity());
 		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.cohen.model.Portfolio.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
+		else 
+		{
+		newStock.setRecommendation(com.cohen.model.Portfolio.ALGO_RECOMMENDATION.valueOf("HOLD"));
+		}
 
+		 
 		return newStock;
 	}
 	

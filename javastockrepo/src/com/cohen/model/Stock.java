@@ -21,6 +21,7 @@ public class Stock implements StockInterface {
 	private java.util.Date date;
 	private Portfolio.ALGO_RECOMMENDATION recommendation;
 	private int quantity;
+	transient private DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public Stock (){
 		this.symbol = new String();
