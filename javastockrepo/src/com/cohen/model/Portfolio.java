@@ -35,8 +35,8 @@ public class Portfolio implements PortfolioInterface {
  * c'tor method
  * @param title - Gets from the user the name of the portfolio.
 */
-	public Portfolio (String title) {
-		this.title = title;
+	public Portfolio () {
+		this.title =new String ("temp title");
 		this.stocks = new Stock [MAX_PROTFOLIO_SIZE];
 		this.protfolioSize = 0;
 	}
@@ -51,12 +51,21 @@ public class Portfolio implements PortfolioInterface {
 		this.protfolioSize = portfolio.getProtfolioSize();
 		this.balance = portfolio.getBalance();
 		
-		StockInterface [] coppied = portfolio.getStocks();
+		//StockInterface [] coppied = portfolio.getStocks();
 		for (int i = 0; i < this.protfolioSize; i++){
-			this.stocks [i] = new Stock ((Stock)coppied [i]);
+			this.stocks [i] = new Stock ((Stock)portfolio.getStocks() [i]);
 		}
 	}
-	
+	public Portfolio(StockInterface[] stocksArray) {
+		this.protfolioSize = stocksArray.length;
+		 this.title = new String("Temporary Title");
+		this.stocks = new StockInterface[MAX_PROTFOLIO_SIZE];
+		this.balance = 0;
+		for(int i = 0; i<this.protfolioSize; i++){
+			this.stocks[i]= new Stock ((Stock)stocksArray[i]);;
+		
+		}
+	}
 	public String getTitle() {
 		return title;
 	}

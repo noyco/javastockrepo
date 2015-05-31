@@ -185,19 +185,20 @@ public class PortfolioManager implements PortfolioManagerInterface {
 	 * @param stockDto
 	 * @return Stock
 	 */
+	
 	private Stock fromDto(StockDto stockDto) {
 		Stock newStock = new Stock();
 
 		newStock.setSymbol(stockDto.getSymbol());
 		newStock.setAsk(stockDto.getAsk());
 		newStock.setBid(stockDto.getBid());
-		newStock.setDate(stockDto.getDate().getTime());
+		newStock.setDate(stockDto.getDate());
 		newStock.setQuantity(stockDto.getQuantity());
-		if(stockDto.getRecommendation() != null) newStock.setRecommendation(ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
+		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.cohen.model.Portfolio.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
 
 		return newStock;
 	}
-
+	
 	/**
 	 * toDto - covert Stock to Stock DTO
 	 * @param inStock
@@ -274,7 +275,35 @@ public class PortfolioManager implements PortfolioManagerInterface {
 
 		return ret;
 	}	
+
+	@Override
+	public void setTitle(String title) {
+		Portfolio portfolio = (Portfolio) getPortfolio();
+		portfolio.setTitle(title);
+		flush(portfolio);
+	}
 	
+	@Override
+	public void sellStock(String symbol, int quantity) throws PortfolioException {
+		Portfolio portfolio = (Portfolio) getPortfolio();
+		portfolio.sellStock(symbol, quantity);
+		flush(portfolio);
+	}
+
+	
+	@Override
+	public void removeStock(String symbol) { 
+		Portfolio portfolio = (Portfolio) getPortfolio();
+		portfolio.removeStock(symbol);
+		flush(portfolio);
+	}
+	
+	public void updateBalance(float value) { 
+		Portfolio portfolio = (Portfolio) getPortfolio();
+		portfolio.updateBalance(value);
+		flush(portfolio);
+	}
+
 }
 	
 

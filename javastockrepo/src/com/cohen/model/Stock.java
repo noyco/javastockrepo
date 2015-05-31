@@ -22,7 +22,14 @@ public class Stock implements StockInterface {
 	private Portfolio.ALGO_RECOMMENDATION recommendation;
 	private int quantity;
 	
-	
+	public Stock (){
+		this.symbol = new String();
+		this.bid = 0;
+		this.ask = 0;
+		this.date = new Date();
+		this.recommendation = ALGO_RECOMMENDATION.HOLD;
+		this.quantity = 0;				
+	}
 	
 	/**
 	 * c'tor method
