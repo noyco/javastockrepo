@@ -1,13 +1,6 @@
 package com.cohen.model;
 
-import java.io.IOException;
-import java.util.Calendar;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import java.util.Date;
 import org.algo.model.PortfolioInterface;
 import org.algo.model.StockInterface;
 
@@ -20,14 +13,15 @@ import org.algo.model.StockInterface;
 public class Portfolio implements PortfolioInterface {
 	
 	
-	private final static int MAX_PROTFOLIO_SIZE = 5;
+	final static int MAX_PROTFOLIO_SIZE = 5;
 	
-	public enum ALGO_RECOMMENDATION {
-		BUY,  SELL, REMOVE , HOLD
+	public enum ALGO_RECOMMENDATION{
+		
+		BUY, SELL, REMOVE, HOLD;
 	}
 	
 	private String title ;
-	private StockInterface stocks [];
+	private StockInterface [] stocks ;
 	private int protfolioSize;
 	private float balance ;
 	
@@ -39,33 +33,40 @@ public class Portfolio implements PortfolioInterface {
 		this.title =new String ("temp title");
 		this.stocks = new Stock [MAX_PROTFOLIO_SIZE];
 		this.protfolioSize = 0;
+		this.balance = 0;
 	}
 	
 	/** 
 	 * copy c'tor method
 	 * @param portfolio - Gets from the user the portfolio he wants to copy.
 	 */
-	
-	public Portfolio (Portfolio portfolio){
-		this.title = new String (portfolio.getTitle());
-		this.protfolioSize = portfolio.getProtfolioSize();
-		this.balance = portfolio.getBalance();
-		
-		//StockInterface [] coppied = portfolio.getStocks();
-		for (int i = 0; i < this.protfolioSize; i++){
-			this.stocks [i] = new Stock ((Stock)portfolio.getStocks() [i]);
+	public Portfolio(Portfolio portfolioToCopy) 
+	{
+		this.title = portfolioToCopy.getTitle();
+		for (int i=0; i < portfolioToCopy.getProtfolioSize(); i++)
+		{
+			String symbol = portfolioToCopy.stocks[i].getSymbol();
+			float ask = portfolioToCopy.stocks[i].getAsk();
+			float bid = portfolioToCopy.stocks[i].getBid();
+			Date date = portfolioToCopy.stocks[i].getDate();
+			int quantity = ((Stock) portfolioToCopy.stocks[i]).getQuantity(); // CASTED
+			Stock stock = new Stock(symbol, ask, bid, date, quantity);
+			this.stocks[i] = stock;
 		}
+		this.protfolioSize = portfolioToCopy.getProtfolioSize();
 	}
+
+	
 	public Portfolio(StockInterface[] stocksArray) {
 		this.protfolioSize = stocksArray.length;
-		 this.title = new String("Temporary Title");
+		 this.title = new String("Temp Title");
 		this.stocks = new StockInterface[MAX_PROTFOLIO_SIZE];
 		this.balance = 0;
 		for(int i = 0; i<this.protfolioSize; i++){
-			this.stocks[i]= new Stock ((Stock)stocksArray[i]);;
-		
+			this.stocks[i]= new Stock ((Stock)stocksArray[i]);
 		}
 	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -245,4 +246,3 @@ public class Portfolio implements PortfolioInterface {
 		return ret;
 	}
 }
-

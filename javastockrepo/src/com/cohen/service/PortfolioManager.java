@@ -1,11 +1,8 @@
 package com.cohen.service;
 
-import com.cohen.model.*;
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +19,10 @@ import org.algo.service.MarketService;
 import org.algo.service.PortfolioManagerInterface;
 import org.algo.service.ServiceManager;
 
+import com.cohen.model.*;
+
+import com.cohen.model.Stock.ALGO_RECOMMENDATION;
+
 /**
  * PortfolioManager class 
  * @author noyco
@@ -29,8 +30,8 @@ import org.algo.service.ServiceManager;
  */
 public class PortfolioManager implements PortfolioManagerInterface {
 	
-	public enum ALGO_RECOMMENDATION {
-		BUY, SELL, REMOVE, HOLD
+	public enum OPERATION {
+	    ADD, BUY, SELL, REMOVE
 	}
 	
 	private DatastoreService datastoreService = ServiceManager.datastoreService();
@@ -89,7 +90,7 @@ public class PortfolioManager implements PortfolioManagerInterface {
 			if(stock != null) {
 				List<StockDto> stockHistory = null;
 				try {
-					stockHistory = datastoreService.getStockHistory(stock.getSymbol(),30);
+						stockHistory = datastoreService.getStockHistory(stock.getSymbol(),30);
 				} catch (Exception e) {
 					return null;
 				}
@@ -158,11 +159,11 @@ public class PortfolioManager implements PortfolioManagerInterface {
 	@Override
 	public void buyStock(String symbol, int quantity) throws PortfolioException{
 		try {
-			Portfolio portfolio = (Portfolio) getPortfolio();
+				Portfolio portfolio = (Portfolio) getPortfolio();
 			
-			Stock stock = (Stock) portfolio.findStockPlace(symbol);
-			if(stock == null) {
-				stock = fromDto(ServiceManager.marketService().getStock(symbol));				
+				Stock stock = (Stock) portfolio.findStockPlace(symbol);
+				if(stock == null) {
+					stock = fromDto(ServiceManager.marketService().getStock(symbol));				
 			}
 			
 			portfolio.buyStock(stock, quantity);
@@ -194,13 +195,12 @@ public class PortfolioManager implements PortfolioManagerInterface {
 		newStock.setBid(stockDto.getBid());
 		newStock.setDate(stockDto.getDate());
 		newStock.setQuantity(stockDto.getQuantity());
-		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.cohen.model.Portfolio.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
+		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.cohen.model.Stock.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
 		else 
 		{
-		newStock.setRecommendation(com.cohen.model.Portfolio.ALGO_RECOMMENDATION.valueOf("HOLD"));
+		newStock.setRecommendation(com.cohen.model.Stock.ALGO_RECOMMENDATION.valueOf("HOLD"));
 		}
-
-		 
+ 
 		return newStock;
 	}
 	
@@ -279,7 +279,12 @@ public class PortfolioManager implements PortfolioManagerInterface {
 		}
 
 		return ret;
-	}	
+	}
+	
+	public Portfolio duplicatePortfolio(Portfolio portfolio) {
+		Portfolio copyPortfolio = new Portfolio(portfolio);
+		return copyPortfolio;
+	}
 
 	@Override
 	public void setTitle(String title) {
@@ -312,37 +317,6 @@ public class PortfolioManager implements PortfolioManagerInterface {
 }
 	
 
-
-	/*
-	public Portfolio getPortfolio (){
-		
-		Portfolio myportfolio = new Portfolio ("Exercise 7 portfolio");
-		Calendar cal = Calendar.getInstance();
-		cal.set(2014, 10, 15, 0, 0, 0);
-		myportfolio.updateBalance(10000);
-		
-		Stock s1 = new Stock("PIH",10F,8.5F, cal.getTime());
-		myportfolio.addStock(s1);
-		Date date2 = cal.getTime();
-		
-		Stock s2 = new Stock("AAL", 30F, 25.5F, date2);
-		myportfolio.addStock(s2);
-		
-		Date date3 = cal.getTime();
-		Stock s3 = new Stock("CAAS", 20F, 15.5F, date3);
-		myportfolio.addStock(s3);
-		
-		myportfolio.buyStock(s1, 20);
-		myportfolio.buyStock(s2, 30);
-		myportfolio.buyStock(s3, 40);
-		
-		myportfolio.sellStock("AAL", -1);
-		myportfolio.removeStock("CAAS");
-		
-		return myportfolio;
-	}
-	
-}*/
 	
 
 
