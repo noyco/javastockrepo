@@ -3,7 +3,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.algo.model.StockInterface;
-
+/**
+ * this class represents a Stock of Stocks
+ * @author noyco
+ *
+ */
 public class Stock implements StockInterface
 {	
 	
@@ -19,7 +23,15 @@ public class Stock implements StockInterface
     private int stockQuantity;
     transient private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
-    
+    /**
+	 * C'tor of stock
+	 * 
+	 * @param symbol - name of stock
+	 * @param ask - ask value
+	 * @param bid - bid value
+	 * @param date - create date of the stock
+	 * @author noyco
+	 */  
 	public Stock(String symbol, float ask, float bid, Date date, int quantity)
 	{
 	    this.symbol = symbol;
@@ -29,6 +41,10 @@ public class Stock implements StockInterface
 	    this.stockQuantity = quantity;
 	}
 	
+	/**
+	 * copy c'tor of stock
+	 * @param copyStock
+	 */
 	public Stock(Stock copyStock) 
 	{
 	    this.symbol = copyStock.getSymbol();
@@ -38,7 +54,12 @@ public class Stock implements StockInterface
 	    this.recommendation = copyStock.getRecommendation();
 	    this.stockQuantity = copyStock.getQuantity();
 	}
-	
+	/** 
+	 * c'tor method
+	 * Creates an instance of Stock
+	 * Set the ask, bid and stockQuantity start as 0.
+	 * set recommendation as hold
+	 */
 	public Stock() 
 	{
 		this.symbol = new String();
@@ -93,11 +114,11 @@ public class Stock implements StockInterface
 	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
 	}
-
-	@SuppressWarnings("deprecation")
-
 	
-
+	/**
+	 * string method that print to screen
+	 * @return string value
+	 */
 	public String getHtmlDescription(){  
 		String resultStr = "<b>Stocksymbol</b>: "
 		+this.getSymbol()+  "<b> Bid</b>: "

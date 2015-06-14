@@ -20,7 +20,7 @@ import org.algo.service.PortfolioManagerInterface;
 import org.algo.service.ServiceManager;
 
 import com.cohen.model.*;
-
+import com.cohen.exception.*;
 import com.cohen.model.Stock.ALGO_RECOMMENDATION;
 
 /**
@@ -130,7 +130,7 @@ public class PortfolioManager implements PortfolioManagerInterface {
 	 * Add stock to portfolio 
 	 */
 	@Override
-	public void addStock(String symbol) {
+	public void addStock(String symbol) throws PortfolioFullException, StockAlreadyExistsException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
 
 		try {
@@ -157,7 +157,7 @@ public class PortfolioManager implements PortfolioManagerInterface {
 	 * Buy stock
 	 */
 	@Override
-	public void buyStock(String symbol, int quantity) throws PortfolioException{
+	public void buyStock(String symbol, int quantity)throws PortfolioException{
 		try {
 				Portfolio portfolio = (Portfolio) getPortfolio();
 			
@@ -169,7 +169,7 @@ public class PortfolioManager implements PortfolioManagerInterface {
 			portfolio.buyStock(stock, quantity);
 			flush(portfolio);
 		}catch (Exception e) {
-			System.out.println("Exception: "+e);
+			throw new BalanceException();
 		}
 	}
 
@@ -281,7 +281,7 @@ public class PortfolioManager implements PortfolioManagerInterface {
 		return ret;
 	}
 	
-	public Portfolio duplicatePortfolio(Portfolio portfolio) {
+	public Portfolio duplicatePortfolio(Portfolio portfolio) throws BalanceException {
 		Portfolio copyPortfolio = new Portfolio(portfolio);
 		return copyPortfolio;
 	}
@@ -302,13 +302,13 @@ public class PortfolioManager implements PortfolioManagerInterface {
 
 	
 	@Override
-	public void removeStock(String symbol) { 
+	public void removeStock(String symbol) throws PortfolioException { 
 		Portfolio portfolio = (Portfolio) getPortfolio();
 		portfolio.removeStock(symbol);
 		flush(portfolio);
 	}
 	
-	public void updateBalance(float value) { 
+	public void updateBalance(float value) throws PortfolioException { 
 		Portfolio portfolio = (Portfolio) getPortfolio();
 		portfolio.updateBalance(value);
 		flush(portfolio);

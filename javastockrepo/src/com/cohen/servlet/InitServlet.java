@@ -7,7 +7,7 @@ import com.cohen.service.*;
 @SuppressWarnings("serial")
 public class InitServlet extends javax.servlet.http.HttpServlet {
 	
-	@Override
+@Override
 
 	public void init() throws ServletException {
 		PortfolioManager pm = new PortfolioManager();
@@ -16,3 +16,7 @@ public class InitServlet extends javax.servlet.http.HttpServlet {
 
 
 }
+
+
+
+
